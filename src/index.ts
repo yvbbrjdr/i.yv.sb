@@ -1,5 +1,11 @@
 import net from "node:net";
 
+import IPLocate from "node-iplocate";
+
+interface Env {
+  IPLOCATE_API_KEY: string;
+}
+
 interface DnsQuestion {
   name: string;
   type: number;
@@ -61,20 +67,16 @@ const getIpFromString = async (s: string): Promise<string | null> => {
   return null;
 };
 
-const fetchForIp = async (ip: string): Promise<Record<string, any> | null> => {
-  return { ip };
-};
-
 export default {
   async fetch(request, env, ctx): Promise<Response> {
-    const resp: {
-      ip: string | null;
-      resolved: Record<string, any> | null;
-      [key: string]: any;
-    } = {
-      ip: request.headers.get("CF-Connecting-IP"),
+    const iplocateClient = new IPLocate(env.IPLOCATE_API_KEY);
+
+    const selfIp = request.headers.get("CF-Connecting-IP") as string;
+    const resp: { [key: string]: any } = {
+      ip: selfIp,
       resolved: null,
-      ...request.cf,
+      cf: request.cf ?? null,
+      iplocate: await iplocateClient.lookup(selfIp),
     };
 
     const url = new URL(request.url);
@@ -82,7 +84,10 @@ export default {
     if (path !== "") {
       const ip = await getIpFromString(path);
       if (ip) {
-        resp.resolved = await fetchForIp(ip);
+        resp.resolved = {
+          ip,
+          iplocate: await iplocateClient.lookup(ip),
+        };
       }
     }
 

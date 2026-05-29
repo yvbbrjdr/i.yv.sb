@@ -7,6 +7,10 @@ settings:
 importers:
 
   .:
+    dependencies:
+      node-iplocate:
+        specifier: ^2.0.1
+        version: 2.0.1
     devDependencies:
       '@types/node':
         specifier: ^25.9.1
@@ -432,6 +436,9 @@ packages:
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
     os: [darwin]
 
+  ip-utils@2.4.0:
+    resolution: {integrity: sha512-WplHS3eFOjWenJNfuzmFpUv9p9A+VU7G0UIKD4bxUK9cduFkZA7TPxfsmLrpPX6KcCtrO11zpOhjSyy6hhrpzQ==}
+
   kleur@4.1.5:
     resolution: {integrity: sha512-o+NO+8WrRiQEE4/7nwRJhN1HWpVmJm511pBHUxPLtp0BUISzlBplORYSmTclCnJvQq2tKu/sgl3xVpkc7ZWuQQ==}
     engines: {node: '>=6'}
@@ -440,6 +447,10 @@ packages:
     resolution: {integrity: sha512-JYQ7jPZZWoaaj9jWHb8Ucp6Cu2SbDVqIsAJhumqdzzLkkfq0pYkDeino/sZfW1ixJWPjv/C44zjm9gVJC2izCA==}
     engines: {node: '>=22.0.0'}
     hasBin: true
+
+  node-iplocate@2.0.1:
+    resolution: {integrity: sha512-ogU7slQB8DZcdyrB54LeRrUfbrKPK0X7qnX5adc+NucwUHla/vsufXxiBK3313cG2UoYeIqnLytDE7KF9LCYug==}
+    engines: {node: '>=18.0.0'}
 
   path-to-regexp@6.3.0:
     resolution: {integrity: sha512-Yhpw4T9C6hPpgPeA28us07OJeqZ5EzQTkbfwuhsUg0c237RomFoETJgmp2sa3F/41gfLE6G5cqcYwznmeEeOlQ==}
@@ -479,6 +490,9 @@ packages:
   supports-color@10.2.2:
     resolution: {integrity: sha512-SS+jx45GF1QjgEXQx4NJZV9ImqmO2NPz5FNsIHrsDjh2YsHnawpan7SNQ1o8NuhrbHZy9AZhIoCUiCeaW/C80g==}
     engines: {node: '>=18'}
+
+  tslib@1.14.1:
+    resolution: {integrity: sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==}
 
   tslib@2.8.1:
     resolution: {integrity: sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==}
@@ -808,6 +822,10 @@ snapshots:
   fsevents@2.3.3:
     optional: true
 
+  ip-utils@2.4.0:
+    dependencies:
+      tslib: 1.14.1
+
   kleur@4.1.5: {}
 
   miniflare@4.20260526.0:
@@ -821,6 +839,10 @@ snapshots:
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
+
+  node-iplocate@2.0.1:
+    dependencies:
+      ip-utils: 2.4.0
 
   path-to-regexp@6.3.0: {}
 
@@ -875,6 +897,8 @@ snapshots:
       '@img/sharp-win32-x64': 0.34.5
 
   supports-color@10.2.2: {}
+
+  tslib@1.14.1: {}
 
   tslib@2.8.1:
     optional: true
