@@ -62,7 +62,7 @@ const getIpFromString = async (s: string): Promise<string | null> => {
 };
 
 const fetchForIp = async (ip: string): Promise<Record<string, any> | null> => {
-  return null;
+  return { ip };
 };
 
 export default {
