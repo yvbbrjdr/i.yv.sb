@@ -72,21 +72,23 @@ export default {
     const iplocateClient = new IPLocate(env.IPLOCATE_API_KEY);
 
     const selfIp = request.headers.get("CF-Connecting-IP") as string;
+    const url = new URL(request.url);
+    const includeIplocate = url.searchParams.get("iplocate") === "true";
+
     const resp: { [key: string]: any } = {
       ip: selfIp,
       resolved: null,
       cf: request.cf ?? null,
-      iplocate: await iplocateClient.lookup(selfIp),
+      iplocate: includeIplocate ? await iplocateClient.lookup(selfIp) : null,
     };
 
-    const url = new URL(request.url);
     const path = url.pathname.substring(1);
     if (path !== "") {
       const ip = await getIpFromString(path);
       if (ip) {
         resp.resolved = {
           ip,
-          iplocate: await iplocateClient.lookup(ip),
+          iplocate: includeIplocate ? await iplocateClient.lookup(ip) : null,
         };
       }
     }
